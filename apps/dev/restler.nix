@@ -1,3 +1,14 @@
+# TODO: this is basically useless as-is.
+# this puts the source in the store, where we can't build it at all w/out
+# manually copying it out.
+#
+# you can still use this in a devshell to build in non-pure fashion:
+#
+# cp -rv ${davepkgs.restler-fuzzer} $(pwd)/restler
+# chmod -R +w $(pwd)/restler
+# python $(pwd)/restler/build-restler.py --dest_dir=$(pwd)/restler/restler_bin
+
+
 # NOTE: I couldn't get this to build in a pure fashion.
 # it uses a python script that installs and configures .net dependencies
 # from the internet, at build-time, and that is forbidden.

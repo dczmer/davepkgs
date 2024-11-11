@@ -1,5 +1,8 @@
-{ pkgs }:
-with pkgs;
+{ pkgs ? null }:
+let
+  packages = if pkgs == null then (import <nixpkgs> {}) else pkgs;
+in
+with packages;
 {
   # TODO the `docker run` command is a bit complicated.
   #      maybe port/volumes/etc should be run-time options, or else

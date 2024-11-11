@@ -2,9 +2,6 @@
   docker,
   dockerTools,
   writeShellApplication,
-  port ? "8080",
-  swaggerFile ? "/swagger/openapi.yaml",
-  swaggerVol ? "/tmp/swagger",
 }:
 let
   swagger-ui-image = dockerTools.pullImage {
@@ -20,9 +17,18 @@ writeShellApplication {
     docker
   ];
   text = ''
+    if [ "$#" -ne 3 ]; then
+      echo "$0 <PORT> <VOL>/<SWAGGER_FILE> <DIR>:<VOL>"
+      echo "EXAMPLE:"
+      echo "    $0 8080 /swagger/openapi.yaml .:/swagger"
+      exit 1
+    fi
+    PORT=$1
+    FILE=$2
+    VOL=$3
     docker load -i ${swagger-ui-image}
-    docker run -p ${port}:8080 \
-    -e SWAGGER_JSON=${swaggerFile} \
-    -v ${swaggerVol}:/swagger swaggerapi/swagger-ui
+    docker run -p "$PORT":8080 \
+    -e SWAGGER_JSON="$FILE" \
+    -v "$VOL" swaggerapi/swagger-ui
   '';
 }
