@@ -28,6 +28,8 @@ writeShellApplication {
     VOL=$3
     docker load -i ${swagger-ui-image}
     docker run -p "$PORT":8080 \
+    --add-host=host.docker.internal:host-gateway \
+    --network=bridge \
     -e SWAGGER_JSON="$FILE" \
     -v "$VOL" swaggerapi/swagger-ui
   '';
