@@ -1,6 +1,4 @@
-let
-  pkgs = import <nixpkgs> { };
-in
+{ pkgs }:
 with pkgs;
 {
   # TODO the `docker run` command is a bit complicated.
