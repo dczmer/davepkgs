@@ -1,11 +1,3 @@
-# debug:
-# ```
-# docker run -p 8080:8080 \
-# --net=host -it --entrypoint sh \
-# --add-host=host.docker.internal:host-gateway \
-# swaggerapi/swagger-editor
-# ```
-#
 # NOTE: application must DISABLE CORS protection, or else must run from same domain/origin.
 #       could possibly do this with a localhost nginx as a reverse proxy to bridge one domain.
 #       or just hack in `Access-Control-Allow-Origin: *`.
@@ -40,8 +32,6 @@ writeShellApplication {
     docker load -i ${swagger-editor-image}
     docker run -p "$PORT":8080 \
     -e SWAGGER_FILE="$FILE" \
-    --network=bridge \
-    --add-host=host.docker.internal:host-gateway \
     -v "$VOL" swaggerapi/swagger-editor
   '';
 }
