@@ -1,6 +1,8 @@
-{ pkgs ? null }:
+{
+  pkgs ? null,
+}:
 let
-  packages = if pkgs == null then (import <nixpkgs> {}) else pkgs;
+  packages = if pkgs == null then (import <nixpkgs> { }) else pkgs;
 in
 with packages;
 {
@@ -13,4 +15,7 @@ with packages;
   # restler; just the source checkout and help with instructions
   # for building and running in a devShell.
   restler-fuzzer-src = callPackage ./apps/dev/restler.nix { };
+
+  # prism mock swagger server
+  prism-mock = callPackage ./apps/dev/prism-mock.nix { };
 }
